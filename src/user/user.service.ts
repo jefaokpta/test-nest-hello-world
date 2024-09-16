@@ -1,17 +1,12 @@
 import { Injectable } from '@nestjs/common';
+import { UserModel } from './user.model';
 
 @Injectable()
 export class UserService {
-  public listUsers(): { name: string; id: number }[] {
+  public listUsers(): UserModel[] {
     return [
-      {
-        id: 1,
-        name: 'John Doe',
-      },
-      {
-        id: 2,
-        name: 'Jane Doe',
-      },
+      new UserModel(1, 'John Doe'),
+      new UserModel(2, 'Jane Doe')
     ];
   }
 }
