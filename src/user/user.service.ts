@@ -5,7 +5,7 @@ import { UserDto } from './user.dto';
 @Injectable()
 export class UserService {
 
-  private users: UserModel[] = [new UserModel(1, 'John Doe')];
+  private readonly users: UserModel[] = [new UserModel(1, 'John Doe')];
 
   public listUsers(): UserModel[] {
     return this.users;
