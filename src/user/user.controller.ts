@@ -9,11 +9,12 @@ export class UserController {
   @Get('/users')
   public listUsers(): UserDto[] {
     return this.userService.listUsers()
-      .map((user) => new UserDto(user));
+      .map((user) => new UserDto(user.name));
   }
 
   @Post('/users')
   public createUser(@Body() userDto: UserDto): UserDto {
+    console.log(userDto);
     return this.userService.createUser(userDto);
   }
 }

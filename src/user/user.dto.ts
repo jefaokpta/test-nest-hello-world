@@ -2,18 +2,14 @@
  * @author Jefferson Alves Reis (jefaokpta) < jefaokpta@hotmail.com >
  * Date: 9/16/24
  */
-import { UserModel } from './user.model';
+import { IsNotEmpty } from 'class-validator';
 
 export class UserDto {
-  name: string;
 
-  constructor(name: string);
-  constructor(user: UserModel);
-  constructor(nameOrUser: string | UserModel) {
-    if (typeof nameOrUser === 'string') {
-      this.name = nameOrUser;
-    } else {
-      this.name = nameOrUser.name;
-    }
+  @IsNotEmpty({ message: 'Nome eh obrigatorio' })
+  readonly name: string;
+
+  constructor(name: string) {
+    this.name = name;
   }
 }
