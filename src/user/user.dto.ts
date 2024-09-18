@@ -5,11 +5,16 @@
 import { IsNotEmpty } from 'class-validator';
 
 export class UserDto {
-
   @IsNotEmpty({ message: 'Nome eh obrigatorio' })
   readonly name: string;
 
-  constructor(name: string) {
-    this.name = name;
+  constructor(userModel: UserDto);
+  constructor(name: string);
+  constructor(userModelOrName: UserDto | string) {
+    if (userModelOrName instanceof UserDto) {
+      this.name = userModelOrName.name;
+      return;
+    }
+    this.name = userModelOrName;
   }
 }
