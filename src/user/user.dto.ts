@@ -1,21 +1,26 @@
+import { IsArray, IsNotEmpty, IsOptional } from 'class-validator';
+import { UserPhoneEntity } from './entities/user.phone.entity';
+import { UserEntity } from './entities/user.entity';
 /**
  * @author Jefferson Alves Reis (jefaokpta) < jefaokpta@hotmail.com >
  * Date: 9/16/24
  */
-import { IsNotEmpty } from 'class-validator';
-import { UserModel } from './user.model';
 
 export class UserDto {
+  @IsOptional()
+  readonly id: number;
   @IsNotEmpty({ message: 'Nome eh obrigatorio' })
   readonly name: string;
+  @IsArray()
+  readonly phones: UserPhoneEntity[];
 
-  constructor(userModel: UserModel);
-  constructor(name: string);
-  constructor(userModelOrName: UserModel | string) {
-    if (userModelOrName instanceof UserModel) {
-      this.name = userModelOrName.name;
-      return;
-    }
-    this.name = userModelOrName;
+  constructor(userOrName: UserEntity | UserDto | string) {
+    if(userOrName instanceof UserEntity || userOrName instanceof UserDto){
+      this.id = userOrName.id;
+      this.name = userOrName.name;
+      this.phones = userOrName.phones;
+      return
+  }
+    this.name = userOrName;
   }
 }

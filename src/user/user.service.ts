@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UserModel } from './user.model';
+import { UserEntity } from './entities/user.entity';
 import { UserDto } from './user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -7,8 +7,8 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(UserModel)
-    private readonly userRepository: Repository<UserModel>,
+    @InjectRepository(UserEntity)
+    private readonly userRepository: Repository<UserEntity>,
   ) {}
 
   async listUsers(): Promise<UserDto[]> {
@@ -16,7 +16,7 @@ export class UserService {
     return users.map((user) => new UserDto(user));
   }
 
-  async createUser(userDto: UserDto): Promise<UserModel> {
-    return await this.userRepository.save(userDto);
+  async createUser(userDto: UserDto): Promise<UserDto> {
+    return new UserDto(await this.userRepository.save(userDto));
   }
 }
