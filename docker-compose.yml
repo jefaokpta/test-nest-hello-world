@@ -1,0 +1,12 @@
+services:
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: jefao
+      MYSQL_DATABASE: jefao
+      MYSQL_USER: jefao
+      MYSQL_PASSWORD: jefao
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db-data:/var/lib/mysql

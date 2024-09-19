@@ -7,9 +7,8 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get('/users')
-  public listUsers(): UserDto[] {
-    return this.userService.listUsers()
-      .map((user) => new UserDto(user.name));
+  public async listUsers(): Promise<UserDto[]> {
+    return await this.userService.listUsers();
   }
 
   @Post('/users')
