@@ -15,14 +15,14 @@ import { UserPhoneEntity } from './user.phone.entity';
 @Entity('users')
 export class UserEntity {
   @PrimaryGeneratedColumn({ type: 'bigint' })
-  id: number;
+  readonly id: number;
   @Column()
-  name: string;
+  readonly name: string;
   @OneToMany(() => UserPhoneEntity, userPhone => userPhone.user, {cascade: true, eager: true})
-  phones: UserPhoneEntity[];
+  readonly phones: UserPhoneEntity[];
   @CreateDateColumn()
-  createdAt: Date;
+  readonly createdAt: Date;
   @UpdateDateColumn()
-  updatedAt: Date;
+  readonly updatedAt: Date;
 
 }
