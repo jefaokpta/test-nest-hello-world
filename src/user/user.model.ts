@@ -1,4 +1,5 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { UserDto } from './user.dto';
 
 /**
  * @author Jefferson Alves Reis (jefaokpta) < jefaokpta@hotmail.com >
@@ -15,8 +16,4 @@ export class UserModel {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  constructor(id: number, name: string) {
-    this.id = id;
-    this.name = name;
-  }
 }

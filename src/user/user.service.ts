@@ -12,13 +12,11 @@ export class UserService {
   ) {}
 
   async listUsers(): Promise<UserDto[]> {
-    const users = await this.userRepository.find()
+    const users = await this.userRepository.find();
     return users.map((user) => new UserDto(user));
   }
 
-  createUser(userDto: UserDto): UserModel {
-    // const user = new UserModel(this.users.length + 1, userDto.name);
-    // this.users.push(user);
-    return new UserModel(1, userDto.name);
+  async createUser(userDto: UserDto): Promise<UserModel> {
+    return await this.userRepository.save(userDto);
   }
 }
