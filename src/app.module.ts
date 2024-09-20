@@ -4,10 +4,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { MysqlConfigService } from './config/mysql.config.service';
-import { TodoModule } from './todo/todo.module';
 
 @Module({
   imports: [
+    UserModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -15,8 +15,6 @@ import { TodoModule } from './todo/todo.module';
       useClass: MysqlConfigService,
       inject: [MysqlConfigService],
     }),
-    UserModule,
-    TodoModule,
   ],
   controllers: [],
   providers: [],
