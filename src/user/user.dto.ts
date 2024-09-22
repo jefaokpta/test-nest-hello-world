@@ -16,13 +16,12 @@ export class UserDto {
   @IsArray()
   readonly phones: UserPhoneEntity[];
 
-  constructor(userOrName: UserEntity | UserDto | string) {
-    if(userOrName instanceof UserEntity || userOrName instanceof UserDto){
-      this.id = userOrName.id;
-      this.name = userOrName.name;
-      this.phones = userOrName.phones;
-      return
-  }
-    this.name = userOrName;
+  static copy(user: UserEntity): UserDto {
+    return {
+      id: user.id,
+      name: user.name,
+      password: user.password,
+      phones: user.phones
+    }
   }
 }

@@ -12,14 +12,18 @@ export class UserService {
     private readonly userRepository: Repository<UserEntity>,
   ) {}
 
+
   async listUsers(): Promise<UserDto[]> {
     const users = await this.userRepository.find();
-    return users.map((user) => new UserDto(user));
+    return users.map((user) => UserDto.copy(user));
   }
 
-  async createUser(userDto: UserDto): Promise<UserDto> {
-    const passwordHash = bcrypt.hashSync(userDto.password, 10);
+  async createUser(userDto: UserDto) {
+    const passwordHash: string = bcrypt.hashSync(userDto.password, 10);
     Logger.log(passwordHash);
-    return new UserDto(await this.userRepository.save(userDto));
+    const userPart = {...userDto, password: passwordHash};
+    Logger.log(userPart);
+
+    return UserDto.copy(await this.userRepository.save(userPart));
   }
 }

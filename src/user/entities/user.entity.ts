@@ -16,8 +16,10 @@ import { UserPhoneEntity } from './user.phone.entity';
 export class UserEntity {
   @PrimaryGeneratedColumn({ type: 'bigint' })
   readonly id: number;
-  @Column()
+  @Column({unique: true})
   readonly name: string;
+  @Column()
+  readonly password: string;
   @OneToMany(() => UserPhoneEntity, userPhone => userPhone.user, {cascade: true, eager: true})
   readonly phones: UserPhoneEntity[];
   @CreateDateColumn()

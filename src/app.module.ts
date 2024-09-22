@@ -5,10 +5,10 @@ import { DataSource } from 'typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { MysqlConfigService } from './config/mysql.config.service';
 import { ProductModule } from './product/product.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
-    UserModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -16,7 +16,9 @@ import { ProductModule } from './product/product.module';
       useClass: MysqlConfigService,
       inject: [MysqlConfigService],
     }),
+    UserModule,
     ProductModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
