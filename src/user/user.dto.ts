@@ -8,9 +8,11 @@ import { UserEntity } from './entities/user.entity';
 
 export class UserDto {
   @IsOptional()
-  readonly id: number;
+  readonly id: number
   @IsNotEmpty({ message: 'Nome eh obrigatorio' })
-  readonly name: string;
+  readonly name: string
+  @IsOptional()
+  readonly password: string
   @IsArray()
   readonly phones: UserPhoneEntity[];
 

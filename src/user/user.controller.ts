@@ -8,12 +8,12 @@ export class UserController {
 
   @Get('/users')
   public async listUsers(): Promise<UserDto[]> {
-    return await this.userService.listUsers();
+    return await this.userService.listUsers()
   }
 
   @Post('/users')
   public async createUser(@Body() userDto: UserDto): Promise<UserDto> {
-    console.log(userDto);
-    return await this.userService.createUser(userDto);
+    console.log(userDto)
+    return await this.userService.createUser(userDto)
   }
 }

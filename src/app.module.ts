@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { MysqlConfigService } from './config/mysql.config.service';
+import { ProductModule } from './product/product.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { MysqlConfigService } from './config/mysql.config.service';
       useClass: MysqlConfigService,
       inject: [MysqlConfigService],
     }),
+    ProductModule,
   ],
   controllers: [],
   providers: [],
