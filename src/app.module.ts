@@ -25,6 +25,6 @@ import { AuthModule } from './auth/auth.module';
 })
 export class AppModule {
   constructor(private readonly dataSource: DataSource) {
-    console.log('Database conectado:', dataSource.options.database);
+    console.log('🚀 Database conectado:', dataSource.options.database);
   }
 }
