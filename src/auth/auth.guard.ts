@@ -2,7 +2,6 @@ import {
   CanActivate,
   ExecutionContext,
   Injectable,
-  Logger,
   UnauthorizedException,
 } from '@nestjs/common';
 import { Request } from 'express';
@@ -11,7 +10,6 @@ import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  private readonly log = new Logger(AuthGuard.name);
   private readonly JWT_SECRET = this.configService.get<string>('JWT_SECRET');
 
   constructor(
@@ -31,7 +29,7 @@ export class AuthGuard implements CanActivate {
         secret: this.JWT_SECRET,
       });
     } catch (e) {
-      this.log.error(e);
+      console.log('🧨 Token inválido:', e);
       throw new UnauthorizedException('Token inválido');
     }
     return true
