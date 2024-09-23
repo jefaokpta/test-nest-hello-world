@@ -20,10 +20,10 @@ export class UserService {
 
   async createUser(userDto: UserDto): Promise<UserDto> {
     if (userDto.password === undefined) {
-      throw new HttpException('Password é obrigatorio', HttpStatus.BAD_REQUEST);
+      throw new HttpException('Password é obrigatorio', HttpStatus.BAD_REQUEST)
     }
     const passwordHash = bcrypt.hashSync(userDto.password, 10);
-    const userPart = {...userDto, password: passwordHash};
-    return UserDto.copy(await this.userRepository.save(userPart));
+    const userPart = {...userDto, password: passwordHash}
+    return UserDto.copy(await this.userRepository.save(userPart))
   }
 }
