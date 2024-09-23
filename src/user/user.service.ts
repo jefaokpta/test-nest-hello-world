@@ -26,4 +26,8 @@ export class UserService {
     const userPart = {...userDto, password: passwordHash}
     return UserDto.copy(await this.userRepository.save(userPart))
   }
+
+  getUserByName(name: string): Promise<UserEntity> {
+    return this.userRepository.findOne({where: {name}});
+  }
 }

@@ -12,5 +12,6 @@ import { UserPhoneEntity } from './entities/user.phone.entity';
   ])],
   controllers: [UserController],
   providers: [UserService],
+  exports: [UserService]
 })
 export class UserModule {}
