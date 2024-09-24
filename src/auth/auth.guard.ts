@@ -7,6 +7,9 @@ import {
 import { Request } from 'express';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { ROLES_KEY } from './auth.decorator';
+import { Role } from './role.enum';
+import { Reflector } from '@nestjs/core';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -15,6 +18,7 @@ export class AuthGuard implements CanActivate {
   constructor(
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
+    private readonly reflector: Reflector,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -32,7 +36,14 @@ export class AuthGuard implements CanActivate {
       console.log('🧨 Token inválido:', e);
       throw new UnauthorizedException('Token inválido');
     }
-    return true
+    const requiredRoles = this.reflector.getAllAndOverride<Role[]>(ROLES_KEY, [
+      context.getHandler(),
+      context.getClass(),
+    ]);
+    if (!requiredRoles) {
+      return true;
+    }
+    return requiredRoles.some((role) => request.user.roles?.includes(role));
   }
 
   private extractTokenFromHeader(request: Request): string | undefined {

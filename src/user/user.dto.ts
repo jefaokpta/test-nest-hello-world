@@ -25,3 +25,5 @@ export class UserDto {
     };
   }
 }
+
+export type UserDtoNoPassword = Omit<UserDto, 'password'>;
