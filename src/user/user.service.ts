@@ -23,7 +23,7 @@ export class UserService {
       throw new HttpException('Password é obrigatorio', HttpStatus.BAD_REQUEST)
     }
     const passwordHash = bcrypt.hashSync(userDto.password, 10);
-    const userPart = {...userDto, password: passwordHash}
+    const userPart = {...userDto, password: passwordHash};
     return UserDto.copy(await this.userRepository.save(userPart))
   }
 
